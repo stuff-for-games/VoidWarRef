@@ -77,7 +77,7 @@ var expData = new ExpObjData();
 //	Commanders before units or the latter would include the oCrewPlayer parent
 //	Consumables before Tools because they share their parents and can only be differentiated by their prefix
 expData.objCatData = [
-	// new ObjCategory("Boss Weapons", "oSys", ["oSysBossArtillery", "oSystem", "oSysGroup"]),
+	new ObjCategory("Boss Weapons", "oSys", ["oSysBossArtillery", "oSystem", "oSysGroup"]),
 	new ObjCategory("Systems", "oSys", ["oSystem", "oSysGroup"]),
 	new ObjCategory("Subsystems", "oSys", ["oSubsystem", "oSysGroup"]),
 	new ObjCategory("Modules", "oModule", ["oModule"]),
@@ -117,7 +117,7 @@ async Task Run()
 {
 	string folder = Path.Combine(codeFolder, "gml_code");
 	Directory.CreateDirectory(folder);
-	
+
 	PopulateExportData();
 	WriteExportDataJson();
 	PopulateCodeToDump();
