@@ -1,0 +1,541 @@
+<html>
+	<head>
+		<title>Void War Reference</title>
+		<style>
+			/* https://www.1001fonts.com/old-english-five-font.html */
+			@font-face {
+				font-family:OldEnglish;
+				src: url(data:font/ttf;base64,##FRAKTUR_FONT##)
+			}
+			/* -------------------- */
+			h1, h2, #data h3 { font-family:OldEnglish, Calibri, sans-serif; }
+
+			a.gh_link::before {
+				background-image:url(data:font/ttf;base64,##GH_ICON##);
+				background-size:16px 16px;
+				display:inline-block;
+				position:relative;
+				bottom:-2px;
+				margin-right:5px;
+				margin-left:3px;
+				width:16px; 
+				height:16px;
+				content:"";
+			}
+
+			html { scroll-padding-top: 50px; }
+			body {
+				background:#222;
+				color:#bbb;
+				font:1em 'Calibri', sans-serif;
+				margin:0;
+				padding:0;
+			}
+			#navi {
+				background:#111;
+				padding:10px 35px 10px 10px;
+				position:sticky;
+				top:0px;
+				height:20px;
+				font-size:0.9em;
+				color:#999;
+				z-index:100;
+				letter-spacing:-0.02em;
+			}
+			@media (width < 1280px) {
+				body { font-size:0.9em; }
+			}
+			@media (width < 1150px) {
+				#navi { font-size:0.8em; }
+			}
+			#data, #header, #notes_section {
+				padding:10px 10px;
+			}
+			a {
+				color:#ddd;
+			}
+			a:hover {
+				color:#fff;
+			}
+			#navi .cur_table {
+				color:#fff;
+			}
+			#navi a {
+				color:#bbb;
+				font-weight:bold;
+				text-decoration:none;
+			}
+			#navi a:hover  {
+				color:#ddd;
+				text-decoration:underline;
+			}
+			#header {
+				overflow:auto;
+			}
+			#version {
+				float:right;
+				padding-top:20px;
+				margin-left:30px;
+				color:#777;
+				font-size:0.8em;
+				text-align:right;
+			}	
+			#options {
+				float:right;
+				padding-top:23px;
+				font-size:0.9em;	
+			}
+			#options input {
+				position:relative;
+				bottom:-1px;
+			}
+			#options label {
+				margin-left:10px;
+				cursor: pointer;
+			}
+			#options .kb_shortcut {
+				color:#777;
+				font-weight:bold;
+				font-family:monospace;
+				position:relative;
+				bottom:1px;
+			}
+			h2, h3 {
+				letter-spacing:2px;
+				margin-left:5px;
+			}
+			h1 {
+				margin:0px;
+				font-size:2em;
+				font-weight:normal;
+				float:left;
+				color:#999;
+			}
+			h1 a {
+				text-decoration:none;
+			}
+			h2 {
+				font-size:1.5em;
+				margin-top:30px;
+				margin-bottom:10px;
+			}
+			#data > h2:first-child {
+				margin-top:0px;
+			}
+			h3 {
+				font-size:1.2em;
+				margin-top:25px;
+				margin-bottom:10px;
+			}
+			h2 + h3 {
+				margin-top:15px;
+			}
+			li h3 {
+				margin-top:15px;
+			}
+			h2 a, h3 a {
+				color:#666;
+				font-size:0.8em;
+				text-decoration:none;
+			}
+			#top_link {
+				display:block;
+				position:absolute;
+				padding:2px 10px 3px 10px;
+				font-size:1.1em;
+				text-decoration:none;
+				background:#333;
+				top:7px;
+				right:7px;
+			}
+			a#top_link:hover {
+				text-decoration:none;
+			}
+			h2 a:hover, h3 a:hover {
+				color:#999;
+			}
+			table {			
+				width:100%;
+				border-spacing: 0;
+				border-collapse: separate;
+				font-size:.95em;
+				border:1px solid #444;
+			}
+			thead {
+				position: sticky;
+				top:40px;
+				z-index: 50;
+			}
+			th, td {
+				border:1px solid #444;
+				padding:2px 6px;
+			}
+			td {
+				vertical-align:top;
+				border-top-color:#2c2c2c;
+				border-bottom-color:#2c2c2c;
+				border-left-color:#393939;
+				border-right-color:#393939;
+			}
+			td a.obj_link {
+				color:#bbb;
+				text-decoration-color:#666;
+			}
+			td a.obj_link:hover {
+				color:#fff;
+				text-decoration-color:#ddd;
+			}
+			tr:hover td a.obj_link {
+				color:#ddd;
+			}
+			tr {
+				scroll-margin-top:40px;
+				background:#242424;
+			}
+			.opt_show_unavailable_on tr.unavailable {
+				background:#2f2424;
+			}
+			.opt_show_unavailable_off tr.unavailable {
+				display:none;
+			}
+			.grouped_header tr {
+				scroll-margin-top:70px;
+			}
+			tr:hover td {
+				border-top-color:#777;
+				border-bottom-color:#777;
+				color:#ddd;
+			}
+			@keyframes anchorCell {
+				0% { background-color:#444; color:#eee; border-top-color:#999; border-bottom-color:#999; color:#fff; }
+				100% { background-color:#242424; color:#bbb; border-top-color:#2c2c2c; border-bottom-color:#2c2c2c; color:inherit; }
+			}
+			tr:target td {
+				animation: anchorCell 6s;
+			}
+			td:first-child {
+				white-space:nowrap;
+			}
+			th {
+				text-align:left;
+				white-space:nowrap;
+				padding:4px 6px;
+				background:#333;
+				border-bottom:1px solid #666;
+			}
+			.span_groups th {
+				border-width:1px 0 0 0;
+				padding:1px 6px;
+			}
+			.span_groups th:first-child {
+				border-left-width:1px;
+			}
+			.span_groups th:last-child {
+				border-right-width:1px;
+			}
+			.span_groups .group_name {
+				text-align:center;
+				border-image: linear-gradient(#666 0%, #444 100%) 1;
+				border-width:1px 1px 0 1px;
+				border-style: solid;
+				
+			}
+			.numeric_val {
+				text-align:right;
+			}
+			.scrap_icon {
+				width:12px;
+				height:12px;
+				margin-left:10px;
+				display:inline-block;
+				position:relative;
+				font-size:1.3em;
+				font-weight:bold;
+			}
+			.numeric_val .scrap_icon {
+				margin-left:5px;
+			}
+			.scrap_1, .scrap_2 {
+				position:absolute;
+				top:-5px;
+				transform:rotate(45deg);
+				width:10px;
+				height:10px;
+			}
+			.scrap_2 {
+				left:5px;
+			}
+			th.col_price {
+				min-width:40px;
+			}
+			ul#note_list {
+				list-style-type:none;
+				padding-inline-start:0px;
+			}
+			ul {
+				padding-inline-start:25px;
+				list-style-type:initial;
+			}
+			li h3
+			{
+				margin-bottom:5px;
+			}
+			
+			.opt_show_internal_off td.col_internal_name, .opt_show_internal_off th.col_internal_name {
+			   display: none;
+			}
+			
+			.opt_show_tags_off td.col_obj_tags, .opt_show_tags_off th.col_obj_tags {
+			   display: none;
+			}
+			
+			.opt_love_fraktur_on table, .opt_love_fraktur_on li, .opt_love_fraktur_on #navi, .force_fraktur {
+				font-family:OldEnglish, Calibri, sans-serif !important;
+				font-size:0.8em;
+			}
+			.opt_love_fraktur_on #navi {
+				font-size:0.7em;
+			}
+			.force_fraktur {
+				padding-right:1px;
+			}
+
+			
+			
+			/* https://github.com/tofsjonas/sortable */
+			.sortable thead th:not(.no-sort) {
+			  cursor: pointer;
+			}
+			.sortable thead th:not(.no-sort)::after, .sortable thead th:not(.no-sort)::before {
+			  transition: color 0.1s ease-in-out;
+			  font-size: 1.2em;
+			  color: transparent;
+			}
+			.sortable thead th:not(.no-sort)::after {
+			  margin-left: 3px;
+			  content: "\25B8";
+			}
+			.sortable thead th:not(.no-sort):hover::after {
+			  color: inherit;
+			}
+			.sortable thead th:not(.no-sort)[aria-sort=descending]::after {
+			  color: inherit;
+			  content: "\25BE";
+			}
+			.sortable thead th:not(.no-sort)[aria-sort=ascending]::after {
+			  color: inherit;
+			  content: "\25B4";
+			}
+			.sortable thead th:not(.no-sort).indicator-left::after {
+			  content: "";
+			}
+			.sortable thead th:not(.no-sort).indicator-left::before {
+			  margin-right: 3px;
+			  content: "\25B8";
+			}
+			.sortable thead th:not(.no-sort).indicator-left:hover::before {
+			  color: inherit;
+			}
+			.sortable thead th:not(.no-sort).indicator-left[aria-sort=descending]::before {
+			  color: inherit;
+			  content: "\25BE";
+			}
+			.sortable thead th:not(.no-sort).indicator-left[aria-sort=ascending]::before {
+			  color: inherit;
+			  content: "\25B4";
+			}
+		</style>
+	</head>
+	<body id="top" class="opt_show_internal_off opt_show_tags_off opt_show_unavailable_off">
+		<div id="navi">
+			##NAV## | <a href="#notes">Notes</a>
+			<a id="top_link" href="#top">&#x2B71;</a>
+		</div>
+		<div id="header">
+			<h1 id="title"><a href="https://tundra-interactive.itch.io/void-war">Void War</a> <span>Reference</span></h1>
+			<div id="version">Reference Version ##REF_VERSION##<br>Game Version ##GAME_VERSION##</div>
+			<div id="options">
+				<label>
+					<input id="opt_show_internal" type="checkbox" onclick="toggle_option(this.id, this.checked);">
+					Internal Names <span class="kb_shortcut">[ALT+I]</span>
+				</label>
+				<label>
+					<input id="opt_show_unavailable" type="checkbox" onclick="toggle_option(this.id, this.checked);">
+					Unavailable Items <span class="kb_shortcut">[ALT+U]</span>
+				</label>
+				<label>
+					<input id="opt_show_tags" type="checkbox" onclick="toggle_option(this.id, this.checked);">
+					Object Tags <span class="kb_shortcut">[ALT+T]</span>
+				</label>
+				<label>
+					<input id="opt_love_fraktur" type="checkbox" onclick="toggle_option(this.id, this.checked);">
+					<span class="force_fraktur">I &#x2764; Fraktur</span></span><span class="kb_shortcut">[ALT+F]</span>
+				</label>
+			</div>
+		</div>
+		<div id="data">
+			##DATA##
+		</div>
+		<div id="notes_section">
+			<h2 id="notes">Notes <a href='#top'>&#x2B71;</a></h1>
+			<ul id="note_list">
+				<li><h3>Understanding the data</h3>
+					<ul>
+						<li><em>random(Item A, Item B[4], Item C)</em> means a random item will be picked, with <em>Item B</em> having a higher weight.</li>
+						<li>Some crew have different equipment if they are <em>Enemy</em> or <em>Player</em> crew, these items are prefixed with <em>E:</em> or <em>P:</em>.</li>
+						<li>Some starting crew on player ships may be equipped with different items than shown in this reference.</li>
+						<li>Armaments: Unless explicitly stated (see <a href="#WPBeamZombie">Grave Beam</a>) Hull Damage = System Damage.</li>
+						<li>Psychomancies: Some values in the <em>Duration</em> column differ from the description. If the column doesn't show 0 then it usually means the description is incorrect, if it's 0 trust the description.</li>
+						<li>All items sell for half their Buy Price.</li>
+						<li>PSI = System Energy.</li>
+					</ul>
+				</li>
+				<li><h3>Using this reference</h3>
+					<ul>
+						<li>You can hover over column headers find out what the icons mean.</li>
+						<li>You can click on column headers to sort a table by that column.</li>
+						<li>You can link to a specific row in this reference. Right-click on a name in the row you want to link to and select <em>Copy link address</em>.</li>
+						<li>This reference requires no external resources, you can save the .html file and open it in your browser when offline.</li>
+					</ul>
+				</li>
+				<li><h3>Credits</h3>
+					<ul>
+						<li>Game data extracted with the help of <a href="https://github.com/UnderminersTeam/UndertaleModTool/" class="gh_link">UnderminersTeam/UndertaleModTool</a></li>
+						<li>Sorting provided by <a href="https://github.com/tofsjonas/sortable" class="gh_link">tofsjonas/sortable</a></li>
+						<li>The fraktur font used is <a href="https://www.1001fonts.com/old-english-five-font.html">Old English Five</a> by <a href="https://www.1001fonts.com/users/steffmann/">Dieter Steffmann</a></li>
+					</ul>
+				</li>
+				<li><h3>About</h3>
+					<ul>
+						<li>The code repository for this reference can be found at <a href="https://github.com/stuff-for-games/VoidWarRef/" class="gh_link">stuff-for-games/VoidWarRef</a></li>
+						<li>The original URL of this reference is <a href="https://stuff-for-games.github.io/VoidWarRef/">https://stuff-for-games.github.io/VoidWarRef/</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<script>
+			var options = {};
+			var tableOffsets = [];
+			var curTableIndex = -1;
+			var prevScrollY = -1;
+			var tables = Array.from(document.getElementsByTagName("table"));
+			var navLinks = Array.from(document.querySelectorAll("#navi a"));
+			function toggle_option(name, on) 
+			{
+				if (on) 
+				{
+					document.body.classList.add(name + "_on");
+					document.body.classList.remove(name + "_off");
+				}
+				else
+				{
+					document.body.classList.add(name + "_off");
+					document.body.classList.remove(name + "_on");
+				}
+				localStorage.setItem(name, on);
+				options[name] = on;
+				checkOffsets();
+			}
+			Object.keys(localStorage).forEach(function(key) 
+			{
+				var el = document.getElementById(key);
+				if (el != null && el["type"] == "checkbox")
+				{
+					el.checked = localStorage[key] == "true";
+					toggle_option(key, el.checked);
+				}
+			});
+			
+			window.onkeydown = function(e)
+			{
+				var optName = null;
+				if (e.altKey && e.key == "i")
+					optName = "opt_show_internal";
+				else if (e.altKey && e.key == "t")
+					optName = "opt_show_tags";
+				else if (e.altKey && e.key == "f")
+					optName = "opt_love_fraktur";
+				else if (e.altKey && e.key == "u")
+					optName = "opt_show_unavailable";
+
+				if (optName)
+				{
+					toggle_option(optName, !options[optName]);
+					document.getElementById(optName).checked = options[optName];
+					e.preventDefault();
+				}
+			};
+			function checkOffsets()
+			{
+				var offsets = []
+				for (var i in tables)
+				{
+					offsets.push(tables[i].offsetTop);
+				}
+				
+				var oldLen = tableOffsets.length;
+				var newLen = tableOffsets.length;
+				for (var i = 0; i < newLen; i++)
+				{
+					if (oldLen == 0 || tableOffsets[i] != offsets[i])
+					{
+						requestAnimationFrame(() => highlightNav());
+						break;
+					}
+						
+				}
+				tableOffsets = offsets;
+			}
+			function highlightNav()
+			{
+				var tblIndex = -1;
+				var scrollY = window.scrollY;
+				var scrollDiff = prevScrollY - scrollY;
+				prevScrollY = scrollY;
+				
+				var thresholdFactor = 0.4;
+				var threshold = window.innerHeight * thresholdFactor;
+				for (var i = 0; i < tableOffsets.length; i++)
+				{
+					var offset = tableOffsets[i];
+					var relY = offset - scrollY;
+					if (relY < 0 || relY > 0 && relY < threshold)
+						tblIndex = i;
+				}
+				
+				if (curTableIndex != tblIndex && tblIndex > -1)
+				{
+					var tbl = tables[tblIndex];
+					var navId = tbl.id.replace("data_", "nav_");
+					for (var i in navLinks)
+					{
+						if (navLinks[i].id == navId)
+							navLinks[i].classList.add("cur_table");
+						else
+							navLinks[i].classList.remove("cur_table");
+					}
+					curTableIndex = tblIndex;
+				}
+			}
+			window.onscroll = function(e)
+			{
+				requestAnimationFrame(() => highlightNav());
+			}
+			window.onresize = function(e)
+			{
+				requestAnimationFrame(() => checkOffsets());
+			}
+			setTimeout(checkOffsets, 0);
+			setTimeout(highlightNav, 0);
+
+		</script>
+		
+		<!-- https://github.com/tofsjonas/sortable -->
+		<script>
+		document.addEventListener("click",function(d){try{var A=d.shiftKey||d.altKey,f=function k(a,l){return a.nodeName===l?a:k(a.parentNode,l)}(d.target,"TH"),v=f.parentNode,w=v.parentNode,g=w.parentNode;if("THEAD"===w.nodeName&&g.classList.contains("sortable")&&!f.classList.contains("no-sort")){var h=v.cells;for(d=0;d<h.length;d++)h[d]!==f&&h[d].removeAttribute("aria-sort");h="descending";("descending"===f.getAttribute("aria-sort")||g.classList.contains("asc")&&"ascending"!==f.getAttribute("aria-sort"))&&
+	(h="ascending");f.setAttribute("aria-sort",h);g.dataset.timer&&clearTimeout(+g.dataset.timer);g.dataset.timer=setTimeout(function(){(function(a,l){function k(b){if(b){if(l&&b.dataset.sortAlt)return b.dataset.sortAlt;if(b.dataset.sort)return b.dataset.sort;if(b.textContent)return b.textContent}return""}a.dispatchEvent(new Event("sort-start",{bubbles:!0}));for(var p=a.tHead.querySelector("th[aria-sort]"),q=a.tHead.children[0],B="ascending"===p.getAttribute("aria-sort"),C=a.classList.contains("n-last"),
+	y=function(b,m,c){var e=k(m.cells[c]),n=k(b.cells[c]);if(C){if(""===e&&""!==n)return-1;if(""===n&&""!==e)return 1}var x=+e-+n;e=isNaN(x)?e.localeCompare(n):x;return 0===e&&q.cells[c]&&q.cells[c].hasAttribute("data-sort-tbr")?y(b,m,+q.cells[c].dataset.sortTbr):B?-e:e},r=0;r<a.tBodies.length;r++){var t=a.tBodies[r],z=[].slice.call(t.rows,0);z.sort(function(b,m){var c;return y(b,m,+(null!==(c=p.dataset.sortCol)&&void 0!==c?c:p.cellIndex))});var u=t.cloneNode();u.append.apply(u,z);a.replaceChild(u,t)}a.dispatchEvent(new Event("sort-end",
+	{bubbles:!0}))})(g,A)},1).toString()}}catch{}});
+		</script>
+	</body>
+</html>
